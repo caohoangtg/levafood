@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Catalog.Domain\Catalog.Domain.csproj" />
+    <ProjectReference Include="..\Catalog.Infrastructure\Catalog.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DTOs\OrderDtos\" />
+    <Folder Include="DTOs\ResponseDtos\" />
+    <Folder Include="Features\Categories\Commands\CreateCategory\" />
+    <Folder Include="Features\Categories\Commands\DeleteCategory\" />
+    <Folder Include="Features\Categories\Commands\UpdateCategory\" />
+    <Folder Include="Features\Categories\Queries\GetCategory\" />
+    <Folder Include="Features\Categories\Queries\GetCategoriesList\" />
+    <Folder Include="Features\Categories\Queries\GetCategoriesPaged\" />
+    <Folder Include="Features\Modifiers\Commands\CreateModifier\" />
+    <Folder Include="Features\Modifiers\Commands\DeleteModifier\" />
+    <Folder Include="Features\Modifiers\Commands\UpdateModifier\" />
+    <Folder Include="Features\Modifiers\Queries\GetModifiersList\" />
+    <Folder Include="Features\Modifiers\Queries\GetModifiersPaged\" />
+    <Folder Include="Features\Modifiers\Queries\GetModifier\" />
+    <Folder Include="Features\Products\Commands\CreateProduct\" />
+    <Folder Include="Features\Products\Commands\DeleteProduct\" />
+    <Folder Include="Features\Products\Commands\UpdateProduct\" />
+    <Folder Include="Features\Products\Queries\GetProductByCategory\" />
+    <Folder Include="Features\Products\Queries\GetProductsList\" />
+    <Folder Include="Features\Products\Queries\GetProductsPaged\" />
+    <Folder Include="Features\Products\Queries\GetProduct\" />
+  </ItemGroup>
+
+</Project>
