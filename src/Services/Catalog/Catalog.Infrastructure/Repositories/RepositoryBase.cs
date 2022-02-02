@@ -76,5 +76,10 @@ namespace Catalog.Infrastructure.Repositories
             _dbContext.Set<T>().Remove(entity);
             return await _dbContext.SaveChangesAsync();
         }
+
+        public IQueryable<T> GetAsQueryable()
+        {
+            return _dbContext.Set<T>().AsQueryable();
+        }
     }
 }

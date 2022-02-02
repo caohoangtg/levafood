@@ -9,5 +9,10 @@ namespace Catalog.Domain.Entities
         public Guid? MainCategoryId { get; private set; }
 
         public ICollection<Product> Products { get; private set; }
+
+        public void Remove()
+        {
+            IsDeleted = true;
+        }
     }
 }

@@ -2,7 +2,6 @@
 using Catalog.Application.Models.Results;
 using Catalog.Domain.Entities;
 using Catalog.Infrastructure.Contracts.IRepositories;
-using Catalog.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

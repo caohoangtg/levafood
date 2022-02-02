@@ -19,5 +19,6 @@ namespace Catalog.Infrastructure.Contracts.IRepositories
 		Task<T> AddAsync(T entity);
 		Task<int> UpdateAsync(T entity);
 		Task<int> DeleteAsync(T entity);
+		IQueryable<T> GetAsQueryable();
 	}
 }

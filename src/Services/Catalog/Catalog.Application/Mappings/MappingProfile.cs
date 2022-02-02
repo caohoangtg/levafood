@@ -16,10 +16,6 @@ namespace Catalog.Application.Mappings
             CreateMap<PhotoDto, Photo>().ReverseMap();
             CreateMap<ProductModifierDto, ProductModifier>().ReverseMap();
             CreateMap<ProductModifierGroupDto, ProductModifierGroup>().ReverseMap();
-
-
-            //CreateMap<ModifierGroup, ModifierGroupDto>().ReverseMap();
-            //CreateMap<Modifier, ProductModifierDto>().ReverseMap();
         }
     }
 }
