@@ -13,6 +13,9 @@ namespace Catalog.Infrastructure.Persistence
         public DbSet<Category> Categorys { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Modifier> Modifiers { get; set; }
+        public DbSet<ModifierGroup> ModifierGroups { get; set; }
+        public DbSet<ProductModifier> ProductModifiers { get; set; }
+        public DbSet<ProductModifierGroup> ProductModifierGroups { get; set; }
         public DbSet<Variant> Variants { get; set; }
         public DbSet<Photo> Photos { get; set; }
 
@@ -20,34 +23,86 @@ namespace Catalog.Infrastructure.Persistence
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Category>()
-                .HasMany(c => c.Products)
+            builder.Entity<Category>(b =>
+            {
+                b.Property(p => p.Name).HasMaxLength(500);
+                b.Property(p => p.Image).HasMaxLength(1000);
+
+                b.HasMany(c => c.Products)
                 .WithOne(p => p.Category)
                 .HasForeignKey(p => p.CategoryId)
                 .OnDelete(DeleteBehavior.NoAction);
+            });
 
-            builder.Entity<Photo>()
-                .HasOne(i => i.Product)
+
+            builder.Entity<Photo>(b =>
+            {
+                b.Property(p => p.Url).HasMaxLength(1000);
+
+                b.HasOne(i => i.Product)
                 .WithMany(p => p.Photos)
-                .HasForeignKey(i => i.ProductId)
-                .OnDelete(DeleteBehavior.NoAction);
-            
-            builder.Entity<Product>()
-                .HasOne(o => o.Variant)
-                .WithOne(c => c.Product)
-                .HasForeignKey<Variant>(c => c.ProductId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .HasForeignKey(i => i.ProductId);
+            });
 
-            builder.Entity<Product>()
-                .HasOne(o => o.Category)
+            builder.Entity<Variant>(b =>
+            {
+                b.Property(p => p.Name).HasMaxLength(500);
+                b.Property(p => p.Price).HasColumnType("decimal(18,2)");
+
+                b.HasOne(o => o.Product)
+                .WithMany(c => c.Variants)
+                .HasForeignKey(c => c.ProductId);
+
+            });
+
+            builder.Entity<Product>(b =>
+            {
+                b.Property(p => p.Name).HasMaxLength(500);
+                b.Property(p => p.Price).HasColumnType("decimal(18,2)");
+
+                b.HasOne(o => o.Category)
                 .WithMany(c => c.Products)
                 .HasForeignKey(p => p.CategoryId)
                 .OnDelete(DeleteBehavior.NoAction);
-            
-            builder.Entity<Product>()
-                .HasMany(p => p.Modifiers)
-                .WithMany(m => m.Products)
-                .UsingEntity(x => x.ToTable("ProductModifier"));
+            });
+
+            builder.Entity<ProductModifier>(b =>
+            {
+                b.HasKey(p => new { p.ProductId, p.ModifierId });
+
+                b.HasOne(p => p.Product)
+                .WithMany(m => m.Modifiers);
+
+                b.HasOne(p => p.Modifier)
+                .WithMany(m => m.Products);
+            });
+
+            builder.Entity<ProductModifierGroup>(b =>
+            {
+                b.HasKey(p => new { p.ProductId, p.ModifierGroupId });
+
+                b.HasOne(p => p.Product)
+                .WithMany(m => m.ModifierGroups);
+
+                b.HasOne(p => p.ModifierGroup)
+                .WithMany(m => m.Products);
+            });
+
+            builder.Entity<ModifierGroup>(b =>
+            {
+                b.Property(p => p.Name).HasMaxLength(500);
+            });
+
+            builder.Entity<Modifier>(b =>
+            {
+                b.Property(p => p.Name).HasMaxLength(500);
+                b.Property(p => p.Price).HasColumnType("decimal(18,2)");
+
+                b.HasOne(o => o.ModifierGroup)
+                .WithMany(c => c.Modifiers)
+                .HasForeignKey(p => p.ModifierGroupId)
+                .OnDelete(DeleteBehavior.NoAction);
+            });
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

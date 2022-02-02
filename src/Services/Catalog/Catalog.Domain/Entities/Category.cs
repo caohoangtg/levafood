@@ -6,8 +6,7 @@ namespace Catalog.Domain.Entities
     {
         public string Name { get; private set; }
         public string Image { get; private set; }
-        public string Tags { get; private set; }
-        public Guid MainCategoryId { get; private set; }
+        public Guid? MainCategoryId { get; private set; }
 
         public ICollection<Product> Products { get; private set; }
     }

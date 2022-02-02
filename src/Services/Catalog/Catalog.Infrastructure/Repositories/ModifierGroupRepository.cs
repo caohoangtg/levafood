@@ -4,9 +4,9 @@ using Catalog.Infrastructure.Persistence;
 
 namespace Catalog.Infrastructure.Repositories
 {
-    public class ModifierRepository : RepositoryBase<Modifier>, IModifierRepository
+    public class ModifierGroupRepository : RepositoryBase<ModifierGroup>, IModifierGroupRepository
     {
-        public ModifierRepository(CatalogContext dbContext) : base(dbContext)
+        public ModifierGroupRepository(CatalogContext dbContext) : base(dbContext)
         {
 
         }

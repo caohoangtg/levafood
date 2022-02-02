@@ -1,4 +1,5 @@
-﻿using Catalog.Infrastructure.Persistence;
+﻿using Catalog.API.Extensions;
+using Catalog.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -16,7 +17,8 @@ namespace Catalog.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddApplicationServices(Configuration);
+             
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -36,7 +38,7 @@ namespace Catalog.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPIv5 v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

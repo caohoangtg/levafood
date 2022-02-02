@@ -2,7 +2,7 @@
 
 namespace Catalog.Infrastructure.Contracts.IRepositories
 {
-    public interface IModifierRepository : IAsyncRepository<Modifier>
+    public interface IModifierGroupRepository : IAsyncRepository<ModifierGroup>
     {
     }
 }

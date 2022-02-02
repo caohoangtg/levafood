@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Catalog.Infrastructure.Migrations
 {
     [DbContext(typeof(CatalogContext))]
-    [Migration("20220131145327_Initial")]
+    [Migration("20220202055421_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,14 +32,16 @@ namespace Catalog.Infrastructure.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Image")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<bool>("IsActivated")
                         .HasColumnType("bit");
@@ -48,22 +50,19 @@ namespace Catalog.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LastModifiedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("MainCategoryId")
+                    b.Property<Guid?>("MainCategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tags")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.HasKey("Id");
 
@@ -76,9 +75,34 @@ namespace Catalog.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("ModifierGroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ModifierGroupId");
+
+                    b.ToTable("Modifiers");
+                });
+
+            modelBuilder.Entity("Catalog.Domain.Entities.ModifierGroup", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -90,30 +114,20 @@ namespace Catalog.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LastModifiedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("ModifierGroupId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Price")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tags")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Modifiers");
+                    b.ToTable("ModifierGroups");
                 });
 
             modelBuilder.Entity("Catalog.Domain.Entities.Photo", b =>
@@ -122,35 +136,16 @@ namespace Catalog.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActivated")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsMain")
                         .HasColumnType("bit");
-
-                    b.Property<string>("LastModifiedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.HasKey("Id");
 
@@ -170,7 +165,8 @@ namespace Catalog.Infrastructure.Migrations
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -186,19 +182,19 @@ namespace Catalog.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LastModifiedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("Price")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -207,64 +203,69 @@ namespace Catalog.Infrastructure.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("Catalog.Domain.Entities.ProductModifier", b =>
+                {
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ModifierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ProductId", "ModifierId");
+
+                    b.HasIndex("ModifierId");
+
+                    b.ToTable("ProductModifiers");
+                });
+
+            modelBuilder.Entity("Catalog.Domain.Entities.ProductModifierGroup", b =>
+                {
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ModifierGroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ProductId", "ModifierGroupId");
+
+                    b.HasIndex("ModifierGroupId");
+
+                    b.ToTable("ProductModifierGroups");
+                });
+
             modelBuilder.Entity("Catalog.Domain.Entities.Variant", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActivated")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastModifiedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("Price")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Variants");
                 });
 
-            modelBuilder.Entity("ModifierProduct", b =>
+            modelBuilder.Entity("Catalog.Domain.Entities.Modifier", b =>
                 {
-                    b.Property<Guid>("ModifiersId")
-                        .HasColumnType("uniqueidentifier");
+                    b.HasOne("Catalog.Domain.Entities.ModifierGroup", "ModifierGroup")
+                        .WithMany("Modifiers")
+                        .HasForeignKey("ModifierGroupId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                    b.Property<Guid>("ProductsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ModifiersId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("ProductModifier", (string)null);
+                    b.Navigation("ModifierGroup");
                 });
 
             modelBuilder.Entity("Catalog.Domain.Entities.Photo", b =>
@@ -272,7 +273,7 @@ namespace Catalog.Infrastructure.Migrations
                     b.HasOne("Catalog.Domain.Entities.Product", "Product")
                         .WithMany("Photos")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Product");
@@ -289,30 +290,53 @@ namespace Catalog.Infrastructure.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Catalog.Domain.Entities.Variant", b =>
+            modelBuilder.Entity("Catalog.Domain.Entities.ProductModifier", b =>
                 {
-                    b.HasOne("Catalog.Domain.Entities.Product", "Product")
-                        .WithOne("Variant")
-                        .HasForeignKey("Catalog.Domain.Entities.Variant", "ProductId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                    b.HasOne("Catalog.Domain.Entities.Modifier", "Modifier")
+                        .WithMany("Products")
+                        .HasForeignKey("ModifierId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Catalog.Domain.Entities.Product", "Product")
+                        .WithMany("Modifiers")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Modifier");
 
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ModifierProduct", b =>
+            modelBuilder.Entity("Catalog.Domain.Entities.ProductModifierGroup", b =>
                 {
-                    b.HasOne("Catalog.Domain.Entities.Modifier", null)
-                        .WithMany()
-                        .HasForeignKey("ModifiersId")
+                    b.HasOne("Catalog.Domain.Entities.ModifierGroup", "ModifierGroup")
+                        .WithMany("Products")
+                        .HasForeignKey("ModifierGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Catalog.Domain.Entities.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
+                    b.HasOne("Catalog.Domain.Entities.Product", "Product")
+                        .WithMany("ModifierGroups")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ModifierGroup");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Catalog.Domain.Entities.Variant", b =>
+                {
+                    b.HasOne("Catalog.Domain.Entities.Product", "Product")
+                        .WithMany("Variants")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Catalog.Domain.Entities.Category", b =>
@@ -320,12 +344,27 @@ namespace Catalog.Infrastructure.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("Catalog.Domain.Entities.Modifier", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Catalog.Domain.Entities.ModifierGroup", b =>
+                {
+                    b.Navigation("Modifiers");
+
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("Catalog.Domain.Entities.Product", b =>
                 {
+                    b.Navigation("ModifierGroups");
+
+                    b.Navigation("Modifiers");
+
                     b.Navigation("Photos");
 
-                    b.Navigation("Variant")
-                        .IsRequired();
+                    b.Navigation("Variants");
                 });
 #pragma warning restore 612, 618
         }

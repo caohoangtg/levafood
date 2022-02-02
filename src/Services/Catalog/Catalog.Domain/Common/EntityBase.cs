@@ -9,9 +9,12 @@ namespace Catalog.Domain.Common
         public bool IsDeleted { get; private set; }
         public bool IsActivated { get; private set; }
 
+        [MaxLength(100)]
         public string CreatedBy { get; private set; }
         public DateTime CreatedDate { get; private set; }
-        public string LastModifiedBy { get; private set; }
+
+        [MaxLength(100)]
+        public string? LastModifiedBy { get; private set; }
         public DateTime? LastModifiedDate { get; private set; }
 
         public EntityBase()
@@ -19,7 +22,6 @@ namespace Catalog.Domain.Common
             Id = Guid.NewGuid();
             CreatedBy = Guid.NewGuid().ToString();
             CreatedDate = DateTime.UtcNow;
-            LastModifiedBy = string.Empty;
         }
 
         public void UpdateCreated(string createdBy)

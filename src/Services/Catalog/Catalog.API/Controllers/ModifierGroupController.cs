@@ -1,17 +1,17 @@
-﻿using Catalog.Application.Features.Products.Commands;
+﻿using Catalog.Application.Features.ModifierGroups.Commands;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace Catalog.API.Controllers
 {
-    public class ProductController : BaseApiController
+    public class ModifierGroupController : BaseApiController
     {
         #region Command
 
-        [HttpPost(Name = "CreateProduct")]
+        [HttpPost(Name = "CreateModifierGroup")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<ActionResult> CreateProduct([FromBody] CreateProductCommand command)
+        public async Task<ActionResult> CreateModifierGroup([FromBody] CreateModifierGroupCommand command)
         {
             return HandleResult(await Mediator.Send(command));
         }
