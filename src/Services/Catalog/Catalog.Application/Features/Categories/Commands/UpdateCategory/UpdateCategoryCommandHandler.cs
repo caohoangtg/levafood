@@ -10,9 +10,9 @@ namespace Catalog.Application.Features.Categories.Commands
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<DeleteCategoryCommandHandler> _logger;
+        private readonly ILogger<UpdateCategoryCommandHandler> _logger;
 
-        public UpdateCategoryCommandHandler(ICategoryRepository categoryRepository, IMapper mapper, ILogger<DeleteCategoryCommandHandler> logger)
+        public UpdateCategoryCommandHandler(ICategoryRepository categoryRepository, IMapper mapper, ILogger<UpdateCategoryCommandHandler> logger)
         {
             _categoryRepository = categoryRepository;
             _mapper = mapper;

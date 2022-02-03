@@ -8,12 +8,9 @@ namespace Catalog.Domain.Entities
         public ICollection<ProductModifierGroup> Products { get; private set; }
         public ICollection<Modifier> Modifiers { get; private set; }
 
-        public void UpdateForeignKey()
+        public void Remove()
         {
-            foreach (var modifier in Modifiers)
-            {
-                modifier.UpdateModifierGroupId(Id);
-            }
+            IsDeleted = true;
         }
     }
 }

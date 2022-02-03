@@ -12,9 +12,9 @@ namespace Catalog.Application.Features.Categories.Queries
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<GetCategoryQueryHandler> _logger;
+        private readonly ILogger<GetCategoriesPagedQueryHandler> _logger;
 
-        public GetCategoriesPagedQueryHandler(ICategoryRepository categoryRepository, IMapper mapper, ILogger<GetCategoryQueryHandler> logger)
+        public GetCategoriesPagedQueryHandler(ICategoryRepository categoryRepository, IMapper mapper, ILogger<GetCategoriesPagedQueryHandler> logger)
         {
             _categoryRepository = categoryRepository;
             _mapper = mapper;

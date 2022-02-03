@@ -14,10 +14,5 @@
         {
             Id = Guid.NewGuid();
         }
-
-        public void UpdateModifierGroupId(Guid id)
-        {
-            ModifierGroupId = id;
-        }
     }
 }

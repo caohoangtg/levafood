@@ -25,8 +25,6 @@ namespace Catalog.Application.Features.ModifierGroups.Commands
 
             if (modifierGroup == null) return Result<Unit>.Failure("Fails");
 
-            //modifierGroup.UpdateForeignKey();
-            
             await _modifierGroupRepository.AddAsync(modifierGroup);
 
             return Result<Unit>.Success(Unit.Value);

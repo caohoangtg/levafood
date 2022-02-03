@@ -8,7 +8,7 @@ namespace Catalog.Domain.Entities
         public decimal Price { get; private set; }
         public string Description { get; private set; }
         public Guid? CategoryId { get; private set; }
-        public Category Category { get; private set; }
+        public Category? Category { get; private set; }
 
         public ICollection<Variant> Variants { get; private set; }
         public ICollection<ProductModifier> Modifiers { get; private set; }

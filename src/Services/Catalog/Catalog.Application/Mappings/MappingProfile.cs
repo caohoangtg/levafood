@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Catalog.Application.DTOs;
+using Catalog.Application.ViewModels;
 using Catalog.Domain.Entities;
 
 namespace Catalog.Application.Mappings
@@ -16,6 +17,9 @@ namespace Catalog.Application.Mappings
             CreateMap<PhotoDto, Photo>().ReverseMap();
             CreateMap<ProductModifierDto, ProductModifier>().ReverseMap();
             CreateMap<ProductModifierGroupDto, ProductModifierGroup>().ReverseMap();
+
+
+            CreateMap<ModifierGroupViewModel, ModifierGroup>().ReverseMap();
         }
     }
 }

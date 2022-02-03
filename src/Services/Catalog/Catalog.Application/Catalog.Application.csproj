@@ -13,11 +13,6 @@
 
   <ItemGroup>
     <Folder Include="DTOs\ResponseDtos\" />
-    <Folder Include="Features\ModifierGroups\Commands\DeleteModifierGroup\" />
-    <Folder Include="Features\ModifierGroups\Commands\UpdateModifierGroup\" />
-    <Folder Include="Features\ModifierGroups\Queries\GetModifierGroupsList\" />
-    <Folder Include="Features\ModifierGroups\Queries\GetModifierGroupsPaged\" />
-    <Folder Include="Features\ModifierGroups\Queries\GetModifierGroup\" />
     <Folder Include="Features\Products\Commands\DeleteProduct\" />
     <Folder Include="Features\Products\Commands\UpdateProduct\" />
     <Folder Include="Features\Products\Queries\GetProductByCategory\" />
