@@ -58,6 +58,38 @@ namespace Catalog.Infrastructure.Repositories
             return await _dbContext.Set<T>().FindAsync(id);
         }
 
+        public virtual async Task<T> GetByIdAsync(Guid id, Expression<Func<T, bool>>? predicate = null, List<string>? includeStrings = null)
+        {
+            if (predicate == null && (includeStrings == null || !includeStrings.Any())) return await _dbContext.Set<T>().FindAsync(id);
+
+            IQueryable<T> query = _dbContext.Set<T>().Where(x => x.Id == id);
+
+            if (includeStrings != null && includeStrings.Any())
+            {
+                foreach (var includeString in includeStrings)
+                {
+                    if (!string.IsNullOrWhiteSpace(includeString)) query = query.Include(includeString);
+                }
+            }
+
+            if (predicate != null) query = query.Where(predicate);
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+        public virtual async Task<T> GetByIdAsync(Guid id, Expression<Func<T, bool>>? predicate = null, List<Expression<Func<T, object>>>? includes = null)
+        {
+            if (predicate == null && (includes == null || !includes.Any())) return await _dbContext.Set<T>().FindAsync(id);
+
+            IQueryable<T> query = _dbContext.Set<T>();
+
+            if (includes != null && includes.Any()) query = includes.Aggregate(query, (current, include) => current.Include(include));
+
+            if (predicate != null) query = query.Where(predicate);
+
+            return await query.FirstOrDefaultAsync();
+        }
+
         public async Task<T> AddAsync(T entity)
         {
             _dbContext.Set<T>().Add(entity);
@@ -77,9 +109,18 @@ namespace Catalog.Infrastructure.Repositories
             return await _dbContext.SaveChangesAsync();
         }
 
-        public IQueryable<T> GetAsQueryable()
+        public IQueryable<T> GetAsQueryable(Expression<Func<T, bool>>? predicate = null, List<Expression<Func<T, object>>>? includes = null, bool disableTracking = true)
         {
-            return _dbContext.Set<T>().AsQueryable();
+            IQueryable<T> query = _dbContext.Set<T>();
+            if (disableTracking) query = query.AsNoTracking();
+
+            if (predicate == null && (includes == null || !includes.Any())) return query.AsQueryable();
+
+            if (includes != null && includes.Any()) query = includes.Aggregate(query, (current, include) => current.Include(include));
+
+            if (predicate != null) query = query.Where(predicate);
+
+            return query.AsQueryable();
         }
     }
 }

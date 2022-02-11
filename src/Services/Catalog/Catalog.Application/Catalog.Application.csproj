@@ -13,12 +13,7 @@
 
   <ItemGroup>
     <Folder Include="DTOs\ResponseDtos\" />
-    <Folder Include="Features\Products\Commands\DeleteProduct\" />
-    <Folder Include="Features\Products\Commands\UpdateProduct\" />
-    <Folder Include="Features\Products\Queries\GetProductByCategory\" />
-    <Folder Include="Features\Products\Queries\GetProductsList\" />
-    <Folder Include="Features\Products\Queries\GetProductsPaged\" />
-    <Folder Include="Features\Products\Queries\GetProduct\" />
+    <Folder Include="Models\Requests\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using Catalog.Application.DTOs;
 using Catalog.Application.Models.Results;
+using Catalog.Application.Utilities;
+using Catalog.Domain.Entities;
 using Catalog.Infrastructure.Contracts.IRepositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using System.Linq.Expressions;
 
 namespace Catalog.Application.Features.ModifierGroups.Queries
 {
@@ -22,7 +25,12 @@ namespace Catalog.Application.Features.ModifierGroups.Queries
 
         public async Task<Result<ModifierGroupDto>> Handle(GetModifierGroupQuery request, CancellationToken cancellationToken)
         {
-            var modifierGroup = await _modifierGroupRepository.GetByIdAsync(request.Id);
+            List<Expression<Func<ModifierGroup, object>>> includes = new() { m => m.Modifiers, m => m.Products };
+            Expression<Func<ModifierGroup, bool>> predicate = m => m.Name == "Topping" 
+                && (m.Modifiers.Any() || m.Products.Any()) 
+                && m.CreatedBy == "HoangTC";
+
+            var modifierGroup = await _modifierGroupRepository.GetByIdAsync(request.Id, predicate, includes);
 
             if (modifierGroup == null) return Result<ModifierGroupDto>.Failure("Failure");
 

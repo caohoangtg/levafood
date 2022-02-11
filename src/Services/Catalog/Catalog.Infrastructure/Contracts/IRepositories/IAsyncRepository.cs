@@ -16,9 +16,11 @@ namespace Catalog.Infrastructure.Contracts.IRepositories
 									   List<Expression<Func<T, object>>>? includes = null,
 									   bool disableTracking = true);
 		Task<T> GetByIdAsync(Guid id);
+		Task<T> GetByIdAsync(Guid id, Expression<Func<T, bool>>? predicate = null, List<string>? includeStrings = null);
+		Task<T> GetByIdAsync(Guid id, Expression<Func<T, bool>>? predicate = null, List<Expression<Func<T, object>>>? includes = null);
 		Task<T> AddAsync(T entity);
 		Task<int> UpdateAsync(T entity);
 		Task<int> DeleteAsync(T entity);
-		IQueryable<T> GetAsQueryable();
+		IQueryable<T> GetAsQueryable(Expression<Func<T, bool>>? predicate = null, List<Expression<Func<T, object>>>? includes = null, bool disableTracking = true);
 	}
 }
