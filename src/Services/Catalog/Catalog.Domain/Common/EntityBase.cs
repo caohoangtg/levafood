@@ -36,5 +36,12 @@ namespace Catalog.Domain.Common
             LastModifiedBy = lastModifiedBy;
             LastModifiedDate = DateTime.UtcNow;
         }
+
+
+        public void Remove()
+        {
+            IsDeleted = true;
+            IsActivated = false;
+        }
     }
 }

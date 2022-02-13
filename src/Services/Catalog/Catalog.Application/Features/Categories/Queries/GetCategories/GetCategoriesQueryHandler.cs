@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Catalog.Application.DTOs;
 using Catalog.Application.Models.Results;
+using Catalog.Domain.Entities;
 using Catalog.Infrastructure.Contracts.IRepositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using System.Linq.Expressions;
 
 namespace Catalog.Application.Features.Categories.Queries
 {
@@ -22,7 +24,8 @@ namespace Catalog.Application.Features.Categories.Queries
 
         public async Task<Result<List<CategoryDto>>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
         {
-            var categories = await _categoryRepository.GetAllAsync();
+            Expression<Func<Category, bool>> predicate = m => m.IsActivated && !m.IsDeleted;
+            var categories = await _categoryRepository.GetAsync(predicate);
 
             return Result<List<CategoryDto>>.Success(_mapper.Map<List<CategoryDto>>(categories));
         }

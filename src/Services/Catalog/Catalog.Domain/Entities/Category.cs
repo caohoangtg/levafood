@@ -10,9 +10,5 @@ namespace Catalog.Domain.Entities
 
         public ICollection<Product> Products { get; private set; }
 
-        public void Remove()
-        {
-            IsDeleted = true;
-        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Catalog.Application.DTOs;
+using Catalog.Application.Features.Categories.Commands;
 using Catalog.Application.ViewModels;
 using Catalog.Domain.Entities;
 
@@ -9,6 +10,9 @@ namespace Catalog.Application.Mappings
     {
         public MappingProfile()
         {
+            CreateMap<CreateCategoryCommand, Category>();
+            CreateMap<UpdateCategoryCommand, Category>();
+
             CreateMap<ProductDto, Product>().ReverseMap();
             CreateMap<CategoryDto, Category>().ReverseMap();
             CreateMap<ModifierGroupDto, ModifierGroup>().ReverseMap();

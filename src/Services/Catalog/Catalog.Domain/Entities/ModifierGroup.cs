@@ -7,10 +7,5 @@ namespace Catalog.Domain.Entities
         public string Name { get; private set; }
         public ICollection<ProductModifierGroup> Products { get; private set; }
         public ICollection<Modifier> Modifiers { get; private set; }
-
-        public void Remove()
-        {
-            IsDeleted = true;
-        }
     }
 }

@@ -33,10 +33,5 @@ namespace Catalog.Domain.Entities
                 }
             }
         }
-
-        public void Remove()
-        {
-            IsDeleted = true;
-        }
     }
 }

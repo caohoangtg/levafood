@@ -26,7 +26,7 @@ namespace Catalog.Application.Features.Products.Queries
             var query = _productRepository.GetAsQueryable()
                 .ProjectTo<ProductDto>(_mapper.ConfigurationProvider);
 
-            var productsPaged = await PagedList<ProductDto>.CreateAsync(query, request.PagingParams.PageNumber, request.PagingParams.PageSize);
+            var productsPaged = await PagedList<ProductDto>.CreateAsync(query, request.PagingParams.PageNumber, request.PagingParams.PageSize, request.PagingParams.Search);
 
             return Result<PagedList<ProductDto>>.Success(productsPaged);
         }

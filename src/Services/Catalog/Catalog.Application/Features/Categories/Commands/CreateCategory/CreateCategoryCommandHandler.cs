@@ -22,7 +22,7 @@ namespace Catalog.Application.Features.Categories.Commands
 
         public async Task<Result<Unit>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
-            var category = _mapper.Map<Category>(request.Category);
+            var category = _mapper.Map<Category>(request);
 
             if (category == null) return Result<Unit>.Failure("Fails");
 

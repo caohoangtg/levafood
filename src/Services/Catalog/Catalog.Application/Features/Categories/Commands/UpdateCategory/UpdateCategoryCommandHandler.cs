@@ -25,7 +25,7 @@ namespace Catalog.Application.Features.Categories.Commands
 
             if (category == null) return Result<Unit>.Failure("");
 
-            _mapper.Map(request.Category, category);
+            _mapper.Map(request, category);
 
             await _categoryRepository.UpdateAsync(category);
 

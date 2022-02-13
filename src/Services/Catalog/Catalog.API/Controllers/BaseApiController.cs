@@ -47,7 +47,13 @@ namespace Catalog.API.Controllers
                     return NotFound();
                 }
 
-                Response.AddPaginationHeader(result.Value.CurrentPage, result.Value.PageSize, result.Value.TotalCount, result.Value.TotalPages);
+                Response.AddPaginationHeader(
+                    result.Value.CurrentPage, 
+                    result.Value.PageSize, 
+                    result.Value.TotalCount, 
+                    result.Value.TotalPages, 
+                    result.Value.Search
+                    );
                 return Ok(result.Value);
             }
 

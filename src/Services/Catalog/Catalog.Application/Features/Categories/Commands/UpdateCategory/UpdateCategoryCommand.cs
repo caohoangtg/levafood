@@ -1,5 +1,4 @@
-﻿using Catalog.Application.DTOs;
-using Catalog.Application.Models.Results;
+﻿using Catalog.Application.Models.Results;
 using MediatR;
 using System.Text.Json.Serialization;
 
@@ -9,6 +8,8 @@ namespace Catalog.Application.Features.Categories.Commands
     {
         [JsonIgnore]
         public Guid Id { get; set; }
-        public CategoryDto Category { get; set; }
+        public string Name { get; set; }
+        public string Image { get; set; }
+        public Guid? MainCategoryId { get; set; }
     }
 }

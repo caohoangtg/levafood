@@ -31,7 +31,7 @@ namespace Catalog.Application.Features.ModifierGroups.Queries.GetModifierGroupsP
             var query = _modifierGroupRepository.GetAsQueryable()
                 .ProjectTo<ModifierGroupDto>(_mapper.ConfigurationProvider);
 
-            var modifierGroupsPaged = await PagedList<ModifierGroupDto>.CreateAsync(query, request.PagingParams.PageNumber, request.PagingParams.PageSize);
+            var modifierGroupsPaged = await PagedList<ModifierGroupDto>.CreateAsync(query, request.PagingParams.PageNumber, request.PagingParams.PageSize, request.PagingParams.Search);
 
             return Result<PagedList<ModifierGroupDto>>.Success(modifierGroupsPaged);
         }

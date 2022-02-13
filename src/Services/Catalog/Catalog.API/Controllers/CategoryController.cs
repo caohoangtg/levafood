@@ -67,7 +67,7 @@ namespace Catalog.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult> GetCategoriesPaged([FromQuery] PagingParams pagingParams)
         {
-            return HandleResult(await Mediator.Send(new GetCategoriesPagedQuery { PagingParams = pagingParams }));
+            return HandlePagedResult(await Mediator.Send(new GetCategoriesPagedQuery { PagingParams = pagingParams }));
         }
 
         #endregion

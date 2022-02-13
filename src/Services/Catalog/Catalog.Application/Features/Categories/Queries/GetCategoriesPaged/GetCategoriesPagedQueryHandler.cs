@@ -2,9 +2,11 @@
 using AutoMapper.QueryableExtensions;
 using Catalog.Application.DTOs;
 using Catalog.Application.Models.Results;
+using Catalog.Domain.Entities;
 using Catalog.Infrastructure.Contracts.IRepositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using System.Linq.Expressions;
 
 namespace Catalog.Application.Features.Categories.Queries
 {
@@ -23,10 +25,13 @@ namespace Catalog.Application.Features.Categories.Queries
 
         public async Task<Result<PagedList<CategoryDto>>> Handle(GetCategoriesPagedQuery request, CancellationToken cancellationToken)
         {
-            var query = _categoryRepository.GetAsQueryable()
+            //List<Expression<Func<Category, object>>> includes = new() { m => m.Products };
+            Expression<Func<Category, bool>> predicate = m => m.Name == request.PagingParams.Search;
+
+            var query = _categoryRepository.GetAsQueryable(predicate)
                 .ProjectTo<CategoryDto>(_mapper.ConfigurationProvider);
 
-            var categoriesPaged = await PagedList<CategoryDto>.CreateAsync(query, request.PagingParams.PageNumber, request.PagingParams.PageSize);
+            var categoriesPaged = await PagedList<CategoryDto>.CreateAsync(query, request.PagingParams.PageNumber, request.PagingParams.PageSize, request.PagingParams.Search);
 
             return Result<PagedList<CategoryDto>>.Success(categoriesPaged);
         }
