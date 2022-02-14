@@ -7,6 +7,7 @@ namespace Manage.Services
     public class CategoryService : ICategoryService
     {
         private readonly HttpClient _client;
+        private readonly string apiUrl = "api/Category";
 
         public CategoryService(HttpClient client)
         {
@@ -15,7 +16,7 @@ namespace Manage.Services
 
         public async Task<CategoryViewModel> CreateCategory(CategoryViewModel model)
         {
-            var response = await _client.PostAsJson($"api/Category/CreateCategory", model);
+            var response = await _client.PostAsJson($"{apiUrl}/CreateCategory", model);
             if (response.IsSuccessStatusCode)
                 return await response.ReadContentAs<CategoryViewModel>();
             else
@@ -26,7 +27,7 @@ namespace Manage.Services
 
         public async Task<CategoryViewModel> DeleteCategory(Guid id)
         {
-            var response = await _client.DeleteAsync($"api/Category/DeleteCategory/{id}");
+            var response = await _client.DeleteAsync($"{apiUrl}/DeleteCategory/{id}");
             if (response.IsSuccessStatusCode)
                 return await response.ReadContentAs<CategoryViewModel>();
             else
@@ -37,7 +38,7 @@ namespace Manage.Services
 
         public async Task<IEnumerable<CategoryViewModel>> GetCategories()
         {
-            var response = await _client.GetAsync("/api/Category/GetCategories");
+            var response = await _client.GetAsync($"{apiUrl}/GetCategories");
             return await response.ReadContentAs<List<CategoryViewModel>>();
         }
 
@@ -48,13 +49,13 @@ namespace Manage.Services
 
         public async Task<CategoryViewModel> GetCategory(Guid id)
         {
-            var response = await _client.GetAsync($"/api/Category/GetCategory/{id}");
+            var response = await _client.GetAsync($"{apiUrl}/GetCategory/{id}");
             return await response.ReadContentAs<CategoryViewModel>();
         }
 
         public async Task<CategoryViewModel> UpdateCategory(Guid id, CategoryViewModel model)
         {
-            var response = await _client.PutAsJson($"api/Category/UpdateCategory/{id}", model);
+            var response = await _client.PutAsJson($"{apiUrl}/UpdateCategory/{id}", model);
             if (response.IsSuccessStatusCode)
                 return await response.ReadContentAs<CategoryViewModel>();
             else
